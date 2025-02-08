@@ -5,12 +5,12 @@ import config from './config';
 import {randomUUID} from 'crypto';
 
 const imageStorage = multer.diskStorage({
-  destination: async (req, file, callback) => {
+  destination: async (_, file, callback) => {
     const destDir = path.join(config.publicPath, 'images');
     await fs.mkdir(destDir, {recursive: true});
     callback(null, config.publicPath);
   },
-  filename: (req, file, callback) => {
+  filename: (_, file, callback) => {
     const extension = path.extname(file.originalname);
     const newFilename = randomUUID() + extension;
     callback(null, 'images/' + newFilename);
